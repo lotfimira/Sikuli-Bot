@@ -125,7 +125,9 @@ def getBranchName(installer_name):
 
 #------------------------------------------------------------------------------
 def getRemoteNameAndSha(branch_name):
-    g = Github("04776a2616fa4bccb6bb7625e9843f703a26c36b") # TODO use ssh agent for safety
+    
+    personal_access_token = open('token.txt').read()   
+    g = Github(personal_access_token)
     repo = g.get_repo('MiraGeoscience/InSight')
     pull_requests = repo.get_pulls()
     for pr in pull_requests:
