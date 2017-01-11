@@ -2,6 +2,8 @@ import os
 import datetime as dt
 import subprocess
 import sys
+import shutil
+import stat
 from github import Github
 from shutil import copyfile
 
@@ -136,14 +138,19 @@ def getRemoteNameAndSha(branch_name):
             return head.repo.full_name, head.sha # repo name + commit id
             
     return 'MiraGeoscience/InSight', 'development'
-   
+
+#------------------------------------------------------------------------------
+def remove_readonly(func, path, excinfo):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
 #------------------------------------------------------------------------------
 def getSources(remote_name, sha, dest_path):
     
     # clean up workspace
-    if os.path.isdir(TEST_LOG_PATH):
-        subprocess.call(["rm", "-rf", dest_path])
-        
+    if os.path.isdir(dest_path):
+        shutil.rmtree(dest_path, onerror=remove_readonly)
+
     os.makedirs(dest_path)
     
     # set location of ssh key (no passphrase)
