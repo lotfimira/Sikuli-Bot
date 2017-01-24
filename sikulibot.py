@@ -13,7 +13,7 @@ SIKULI_TESTS_FOLDER = 'TestSikuli'
 WORKSPACE_PATH = 'E:\workspace'
 SSH_HOME = 'E:/application/github' # location of git hub ssh key (no passphrase)
 TODAY_00H00 = dt.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-
+THIS_FILE_PATH = os.path.dirname(os.path.realpath(__file__))
 
 #------------------------------------------------------------------------------
 def findFilesModifiedToday(path):
@@ -128,7 +128,7 @@ def getBranchName(installer_name):
 #------------------------------------------------------------------------------
 def getRemoteNameAndSha(branch_name):
     
-    personal_access_token = open('token.txt').read()   
+    personal_access_token = open(THIS_FILE_PATH + '/token.txt').read()   
     g = Github(personal_access_token)
     repo = g.get_repo('MiraGeoscience/InSight')
     pull_requests = repo.get_pulls()
