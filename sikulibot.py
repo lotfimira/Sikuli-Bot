@@ -228,7 +228,7 @@ if res.returncode == 0:
 else:
     print('Failed to install')
     exit(1)
-    
+
 # run sikuli tests
 os.environ['ANALYST_PATH'] = 'C:/Program Files/Mira Geoscience/Geoscience ANALYST'
 sikuli_tests_path = WORKSPACE_PATH + '/' + SIKULI_TESTS_FOLDER
@@ -237,10 +237,10 @@ if not os.path.isdir(sikuli_tests_path):
     print('No Sikuli tests found on this branch')
     saveLog(sikuli_tests_path, installer_to_test)
     exit(0)
-    
+
 sys.path.append(sikuli_tests_path)
-import RunAllTests
-        
+os.system(sikuli_tests_path + 'RunAllTests.py installed')
+
 # save a copy of sikuli test log, so we know what build we tested
 saveLog(sikuli_tests_path, installer_to_test)
 
