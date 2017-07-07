@@ -239,7 +239,7 @@ if not os.path.isdir(sikuli_tests_path):
     exit(0)
 
 sys.path.append(sikuli_tests_path)
-os.system(sikuli_tests_path + 'RunAllTests.py installed')
+os.system(sikuli_tests_path + '/RunAllTests.py installed')
 
 # save a copy of sikuli test log, so we know what build we tested
 saveLog(sikuli_tests_path, installer_to_test)
