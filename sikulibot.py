@@ -124,6 +124,19 @@ def getBranchName(installer_name):
     suffix = '_patch_2016-11-24-16-29_setup.exe'
     branch_name = installer_name[len(prefix):]
     branch_name = branch_name[:-len(suffix)]
+
+    # ask github the true branch name as it is case sensitive
+    personal_access_token = open(THIS_FILE_PATH + '/token.txt').read()   
+    g = Github(personal_access_token)
+    repo = g.get_repo('MiraGeoscience/InSight')
+    pull_requests = repo.get_pulls()
+    for pr in pull_requests:
+        head = pr.head
+        if branch_name.lower() in head.label.lower():
+            return (head.label.split(':'))[-1]
+
+    print('FAILED TO GET BRANCH NAME')
+
     return branch_name
 
 #------------------------------------------------------------------------------
