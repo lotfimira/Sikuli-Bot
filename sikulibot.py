@@ -128,14 +128,14 @@ def getBranchName(installer_name):
 
 #------------------------------------------------------------------------------
 def getRemoteName(branch_name):
-    
+
     personal_access_token = open(THIS_FILE_PATH + '/token.txt').read()   
     g = Github(personal_access_token)
     repo = g.get_repo('MiraGeoscience/InSight')
     pull_requests = repo.get_pulls()
     for pr in pull_requests:
         head = pr.head
-        if branch_name in head.label:
+        if branch_name.lower() in head.label.lower():
             return head.repo.full_name
 
     print('FAILED TO GET REMOTE NAME')
@@ -148,9 +148,6 @@ def remove_readonly(func, path, excinfo):
 
 #------------------------------------------------------------------------------
 def getSources(remote_name, branch_name, dest_path):
-
-    print("REMOTE NAME " + remote_name);
-    print("BRANCH NAME " + branch_name);
 
     # clean up workspace
     if os.path.isdir(dest_path):
